@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Get last commit message
         id: get_commit
         run: echo "msg=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT

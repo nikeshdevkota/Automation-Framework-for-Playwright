@@ -17,9 +17,9 @@ class CustomWorld extends World {
     // No need to setViewportSize again, as context is already set to max
   }
   async closeBrowser() {
-    await this.page.close();
-    await this.context.close();
-    await this.browser.close();
+    if (this.page) await this.page.close();
+    if (this.context) await this.context.close();
+    if (this.browser) await this.browser.close();
   }
 }
 
