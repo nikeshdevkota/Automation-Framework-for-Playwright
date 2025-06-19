@@ -30,8 +30,7 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.3.0",
-    "@cucumber/html-formatter": "^21.11.0",
-    "concurrently": "^9.1.2",
-    "cucumber-html-reporter": "^6.0.0"
+    "@cucumber/html-formatter": "^21.10.1",
+    "concurrently": "^9.1.2"
   }
 }
