@@ -41,16 +41,10 @@ jobs:
           fi
           echo "tag=$tag" >> $GITHUB_OUTPUT
 
-      - name: Run Playwright Cucumber tests (by tag or all) and generate HTML report
+      - name: Run Playwright Cucumber tests (by tag or all)
         run: |
           if [ -n "${{ steps.set_tag.outputs.tag }}" ]; then
-            npx cucumber-js --tags "@${{ steps.set_tag.outputs.tag }}" --format @cucumber/html-formatter:reports/report.html
+            npx cucumber-js --tags "@${{ steps.set_tag.outputs.tag }}"
           else
-            npx cucumber-js --format @cucumber/html-formatter:reports/report.html
-          fi
-
-      - name: Upload HTML report artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cucumber-html-report
-          path: reports/report.html 
+            npx cucumber-js
+          fi 
