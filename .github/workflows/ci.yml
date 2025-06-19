@@ -1,0 +1,53 @@
+name: Playwright Cucumber CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get last commit message
+        id: get_commit
+        run: echo "msg=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
+      - name: Set test tag
+        id: set_tag
+        run: |
+          msg="${{ steps.get_commit.outputs.msg }}"
+          tag=""
+          if echo "$msg" | grep -iq 'positive'; then
+            tag="positive"
+          elif echo "$msg" | grep -iq 'negative'; then
+            tag="negative"
+          elif echo "$msg" | grep -iq 'purchase'; then
+            tag="purchase"
+          fi
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Run Playwright Cucumber tests (by tag or all) and generate HTML report
+        run: |
+          if [ -n "${{ steps.set_tag.outputs.tag }}" ]; then
+            npx cucumber-js --tags "@${{ steps.set_tag.outputs.tag }}" --format @cucumber/html-formatter:reports/report.html
+          else
+            npx cucumber-js --format @cucumber/html-formatter:reports/report.html
+          fi
+
+      - name: Upload HTML report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-html-report
+          path: reports/report.html 

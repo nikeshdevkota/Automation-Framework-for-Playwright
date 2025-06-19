@@ -1,0 +1,37 @@
+{
+  "name": "bitbucket",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:login:chrome:headless": "PW_BROWSER=chromium HEADLESS=true cucumber-js tests/features/login.feature",
+    "test:login:chrome:headed": "PW_BROWSER=chromium HEADLESS=false cucumber-js tests/features/login.feature",
+    "test:login:firefox:headless": "PW_BROWSER=firefox HEADLESS=true cucumber-js tests/features/login.feature",
+    "test:login:firefox:headed": "PW_BROWSER=firefox HEADLESS=false cucumber-js tests/features/login.feature",
+    "test:e2e:chrome:headless": "PW_BROWSER=chromium HEADLESS=true cucumber-js tests/features/e2e.feature",
+    "test:e2e:chrome:headed": "PW_BROWSER=chromium HEADLESS=false cucumber-js tests/features/e2e.feature",
+    "test:e2e:firefox:headless": "PW_BROWSER=firefox HEADLESS=true cucumber-js tests/features/e2e.feature",
+    "test:e2e:firefox:headed": "PW_BROWSER=firefox HEADLESS=false cucumber-js tests/features/e2e.feature",
+    "test:login:parallel": "concurrently -k -n chrome,firefox \"npm run test:login:chrome:headless\" \"npm run test:login:firefox:headless\"",
+    "test:e2e:parallel": "concurrently -k -n chrome,firefox \"npm run test:e2e:chrome:headless\" \"npm run test:e2e:firefox:headless\"",
+    "test:tag:login": "cucumber-js --tags '@login'",
+    "test:tag:e2e": "cucumber-js --tags '@e2e'",
+    "test:tag:positive": "cucumber-js --tags '@positive'",
+    "test:tag:negative": "cucumber-js --tags '@negative'",
+    "test:tag:purchase": "cucumber-js --tags '@purchase'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.53.1",
+    "playwright": "^1.53.1"
+  },
+  "devDependencies": {
+    "@cucumber/html-formatter": "^21.11.0",
+    "concurrently": "^9.1.2",
+    "cucumber-html-reporter": "^7.2.0"
+  }
+}
