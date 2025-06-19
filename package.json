@@ -29,9 +29,9 @@
     "playwright": "^1.53.1"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^11.3.0",
-    "@cucumber/html-formatter": "^21.11.0",
+    "@cucumber/cucumber": "^10.0.0",
+    "@cucumber/html-formatter": "^19.0.0",
     "concurrently": "^9.1.2",
-    "cucumber-html-reporter": "^7.2.0"
+    "cucumber-html-reporter": "^6.0.0"
   }
 }
